@@ -4,62 +4,134 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Form Validation</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+      }
+
+      .container {
+        background: #fff;
+        padding: 30px;
+        width: 380px;
+        border-radius: 15px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      }
+
+      h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+      }
+
+      label {
+        display: block;
+        margin-top: 15px;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+
+      input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 15px;
+      }
+
+      input:focus {
+        border-color: #667eea;
+        outline: none;
+      }
+
+      button {
+        width: 100%;
+        padding: 12px;
+        margin-top: 20px;
+        border: none;
+        border-radius: 8px;
+        background: #667eea;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: #5563d8;
+      }
+
+      #message {
+        margin-top: 20px;
+        text-align: center;
+        font-weight: bold;
+      }
+    </style>
   </head>
+
   <body>
-    <h1>Form Validation</h1>
+    <div class="container">
+      <h2>Registration Form</h2>
 
-    <!-- Form starts here -->
-    <form id="myform">
-      <!-- Name input -->
-      Name:
-      <input type="text" id="name" required /><br /><br />
+      <form id="myform">
+        <label>Name</label>
+        <input type="text" id="name" placeholder="Enter your name" />
 
-      <!-- Email input -->
-      Email:
-      <input type="email" id="email" required /><br /><br />
+        <label>Email</label>
+        <input type="email" id="email" placeholder="Enter your email" />
 
-      <!-- Phone Number input -->
-      Phone Number:
-      <input type="number" id="number" /><br /><br />
+        <label>Phone Number</label>
+        <input type="tel" id="number" placeholder="Enter your phone number" />
 
-      <!-- Submit button -->
-      <button type="submit">Submit</button>
-    </form>
+        <button type="submit">Submit</button>
+      </form>
+
+      <p id="message"></p>
+    </div>
 
     <script>
-      // Select the form using its id
       const form = document.getElementById("myform");
+      const message = document.getElementById("message");
 
-      // Listen for the form submit event
       form.addEventListener("submit", function (e) {
-        // Prevent the page from refreshing after submit
         e.preventDefault();
 
-        // Get the entered values and remove extra spaces
-        let name = document.getElementById("name").value.trim();
-        let email = document.getElementById("email").value.trim();
-        let number = document.getElementById("number").value.trim();
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const number = document.getElementById("number").value.trim();
 
-        // Check if name is empty
         if (name === "") {
-          alert("Please enter your name");
-          return; // Stop the function
+          message.textContent = "Please enter your name.";
+          message.style.color = "red";
+          return;
         }
 
-        // Check if email is empty
         if (email === "") {
-          alert("Please enter your email");
+          message.textContent = "Please enter your email.";
+          message.style.color = "red";
           return;
         }
 
-        // Check if phone number is empty
         if (number === "") {
-          alert("Please enter your phone number");
+          message.textContent = "Please enter your phone number.";
+          message.style.color = "red";
           return;
         }
 
-        // Runs only if all fields are filled
-        alert("Form Submitted Successfully");
+        message.textContent = `✅ Welcome ${name}! Form submitted successfully.`;
+        message.style.color = "green";
+
+        form.reset();
       });
     </script>
   </body>
