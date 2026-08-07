@@ -3,20 +3,106 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Function Project</title>
-  </head>
-  <body>
-     <script>
-      function greet(name) {
-        return "Hello, " + name + "!";
+    <title>Greeting App</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
       }
 
-      // Example usage:
-      const userName = prompt("Enter your name:");
-      const greetingMessage = greet(userName);
-      alert(greetingMessage);
-    </script> 
-    
-    </script> 
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+      }
+
+      .card {
+        background: #fff;
+        padding: 35px;
+        width: 360px;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      }
+
+      h1 {
+        margin-bottom: 20px;
+        color: #333;
+      }
+
+      input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 16px;
+        margin-bottom: 15px;
+        outline: none;
+      }
+
+      input:focus {
+        border-color: #667eea;
+      }
+
+      button {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 8px;
+        background: #667eea;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      button:hover {
+        background: #5563d8;
+      }
+
+      #result {
+        margin-top: 20px;
+        font-size: 18px;
+        color: #444;
+        font-weight: bold;
+        min-height: 25px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>Greeting App 👋</h1>
+
+      <input type="text" id="name" placeholder="Enter your name" />
+
+      <button onclick="showGreeting()">Greet Me</button>
+
+      <p id="result"></p>
+    </div>
+
+    <script>
+      function greet(name) {
+        return `Hello, ${name}! 👋 Welcome to my Greeting App.`;
+      }
+
+      function showGreeting() {
+        const userName = document.getElementById("name").value.trim();
+        const result = document.getElementById("result");
+
+        if (userName === "") {
+          result.textContent = "⚠️ Please enter your name.";
+          result.style.color = "red";
+          return;
+        }
+
+        result.textContent = greet(userName);
+        result.style.color = "#2c3e50";
+      }
+    </script>
   </body>
 </html>
