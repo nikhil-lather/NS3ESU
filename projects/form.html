@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Validation</title>
+  </head>
+  <body>
+    <h1>Form Validation</h1>
+
+    <!-- Form starts here -->
+    <form id="myform">
+      <!-- Name input -->
+      Name:
+      <input type="text" id="name" required /><br /><br />
+
+      <!-- Email input -->
+      Email:
+      <input type="email" id="email" required /><br /><br />
+
+      <!-- Phone Number input -->
+      Phone Number:
+      <input type="number" id="number" /><br /><br />
+
+      <!-- Submit button -->
+      <button type="submit">Submit</button>
+    </form>
+
+    <script>
+      // Select the form using its id
+      const form = document.getElementById("myform");
+
+      // Listen for the form submit event
+      form.addEventListener("submit", function (e) {
+        // Prevent the page from refreshing after submit
+        e.preventDefault();
+
+        // Get the entered values and remove extra spaces
+        let name = document.getElementById("name").value.trim();
+        let email = document.getElementById("email").value.trim();
+        let number = document.getElementById("number").value.trim();
+
+        // Check if name is empty
+        if (name === "") {
+          alert("Please enter your name");
+          return; // Stop the function
+        }
+
+        // Check if email is empty
+        if (email === "") {
+          alert("Please enter your email");
+          return;
+        }
+
+        // Check if phone number is empty
+        if (number === "") {
+          alert("Please enter your phone number");
+          return;
+        }
+
+        // Runs only if all fields are filled
+        alert("Form Submitted Successfully");
+      });
+    </script>
+  </body>
+</html>

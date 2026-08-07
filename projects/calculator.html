@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modern Calculator</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family:
+          Segoe UI,
+          Arial,
+          sans-serif;
+      }
+
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      }
+
+      .calculator {
+        width: 360px;
+        backdrop-filter: blur(20px);
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 25px;
+        padding: 20px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+      }
+
+      .heading {
+        text-align: center;
+        color: white;
+        margin-bottom: 15px;
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      .display {
+        background: rgba(0, 0, 0, 0.25);
+        border-radius: 15px;
+        padding: 15px;
+        margin-bottom: 15px;
+        text-align: right;
+        word-wrap: break-word;
+      }
+
+      .history {
+        color: #b8b8b8;
+        font-size: 16px;
+        min-height: 20px;
+      }
+
+      .output {
+        color: white;
+        font-size: 38px;
+        margin-top: 8px;
+        min-height: 45px;
+      }
+
+      .buttons {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+      }
+
+      button {
+        height: 65px;
+        border: none;
+        border-radius: 15px;
+        font-size: 22px;
+        cursor: pointer;
+        transition: 0.25s;
+        color: white;
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(10px);
+      }
+
+      button:hover {
+        transform: translateY(-3px);
+        background: rgba(255, 255, 255, 0.18);
+      }
+
+      button:active {
+        transform: scale(0.95);
+      }
+
+      .operator {
+        background: #ff9800;
+      }
+
+      .operator:hover {
+        background: #ffb74d;
+      }
+
+      .equal {
+        background: #00c853;
+        grid-column: span 2;
+      }
+
+      .equal:hover {
+        background: #00e676;
+      }
+
+      .clear {
+        background: #f44336;
+      }
+
+      .clear:hover {
+        background: #ff6659;
+      }
+
+      .back {
+        background: #607d8b;
+      }
+
+      .back:hover {
+        background: #78909c;
+      }
+
+      .zero {
+        grid-column: span 2;
+      }
+
+      .footer {
+        text-align: center;
+        color: #ddd;
+        margin-top: 15px;
+        font-size: 13px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="calculator">
+      <div class="heading">🧮 Calculator</div>
+
+      <div class="display">
+        <div class="history" id="history"></div>
+        <div class="output" id="output">0</div>
+      </div>
+
+      <div class="buttons">
+        <button class="clear" onclick="clearDisplay()">C</button>
+        <button class="back" onclick="backspace()">⌫</button>
+        <button class="operator" onclick="append('%')">%</button>
+        <button class="operator" onclick="append('/')">÷</button>
+
+        <button onclick="append('7')">7</button>
+        <button onclick="append('8')">8</button>
+        <button onclick="append('9')">9</button>
+        <button class="operator" onclick="append('*')">×</button>
+
+        <button onclick="append('4')">4</button>
+        <button onclick="append('5')">5</button>
+        <button onclick="append('6')">6</button>
+        <button class="operator" onclick="append('-')">−</button>
+
+        <button onclick="append('1')">1</button>
+        <button onclick="append('2')">2</button>
+        <button onclick="append('3')">3</button>
+        <button class="operator" onclick="append('+')">+</button>
+
+        <button class="zero" onclick="append('0')">0</button>
+        <button onclick="append('.')">.</button>
+
+        <button class="equal" onclick="calculate()">=</button>
+      </div>
+
+      <div class="footer">Keyboard Supported</div>
+    </div>
+
+    <script>
+      let expression = "";
+
+      const output = document.getElementById("output");
+      const history = document.getElementById("history");
+
+      function updateDisplay() {
+        output.textContent = expression || "0";
+      }
+
+      function append(value) {
+        expression += value;
+        updateDisplay();
+      }
+
+      function clearDisplay() {
+        expression = "";
+        history.textContent = "";
+        updateDisplay();
+      }
+
+      function backspace() {
+        expression = expression.slice(0, -1);
+        updateDisplay();
+      }
+
+      function calculate() {
+        if (expression === "") return;
+
+        try {
+          history.textContent = expression;
+
+          let exp = expression.replace(/%/g, "/100");
+
+          let result = eval(exp);
+
+          if (result === undefined) return;
+
+          result = Number(result.toFixed(10));
+
+          expression = result.toString();
+
+          output.textContent = expression;
+        } catch {
+          output.textContent = "Error";
+          expression = "";
+        }
+      }
+
+      // Keyboard Support
+
+      document.addEventListener("keydown", function (e) {
+        const key = e.key;
+
+        if (!isNaN(key) || "+-*/.%".includes(key)) {
+          append(key);
+        } else if (key === "Enter") {
+          e.preventDefault();
+          calculate();
+        } else if (key === "Backspace") {
+          backspace();
+        } else if (key === "Delete" || key === "Escape") {
+          clearDisplay();
+        }
+      });
+    </script>
+  </body>
+</html>
