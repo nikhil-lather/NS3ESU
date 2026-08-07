@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modern Todo List</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        padding: 20px;
+      }
+
+      .container {
+        width: 430px;
+        background: white;
+        border-radius: 20px;
+        padding: 25px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 5px;
+      }
+
+      .today {
+        text-align: center;
+        color: gray;
+        margin-bottom: 20px;
+        font-size: 14px;
+      }
+
+      .inputBox {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      input {
+        padding: 12px;
+        font-size: 16px;
+        border: 2px solid #ddd;
+        border-radius: 10px;
+        outline: none;
+      }
+
+      input:focus {
+        border-color: #4facfe;
+      }
+
+      button {
+        padding: 13px;
+        border: none;
+        border-radius: 10px;
+        background: #2196f3;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      button:hover {
+        background: #0b7dda;
+      }
+
+      ul {
+        margin-top: 25px;
+        list-style: none;
+      }
+
+      li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px;
+        margin-bottom: 15px;
+        background: #f5f7fb;
+        border-radius: 12px;
+        animation: fade 0.4s;
+      }
+
+      .left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 1;
+      }
+
+      .left input {
+        width: 18px;
+        height: 18px;
+      }
+
+      .task {
+        font-size: 16px;
+      }
+
+      .completed {
+        text-decoration: line-through;
+        color: gray;
+      }
+
+      .date {
+        font-size: 13px;
+        color: #666;
+        margin-top: 4px;
+      }
+
+      .delete {
+        background: #f44336;
+        padding: 8px 14px;
+        font-size: 14px;
+      }
+
+      .delete:hover {
+        background: #d32f2f;
+      }
+
+      @keyframes fade {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>📝 Todo List</h1>
+
+      <p class="today" id="today"></p>
+
+      <div class="inputBox">
+        <input id="task" type="text" placeholder="Enter your task" />
+
+        <input id="date" type="date" />
+
+        <button onclick="addTask()">Add Task</button>
+      </div>
+
+      <ul id="list"></ul>
+    </div>
+
+    <script>
+      const today = document.getElementById("today");
+
+      today.innerHTML = "Today's Date : " + new Date().toLocaleDateString();
+
+      function addTask() {
+        let task = document.getElementById("task").value.trim();
+
+        let date = document.getElementById("date").value;
+
+        if (task === "" || date === "") {
+          alert("Please enter task and date");
+
+          return;
+        }
+
+        let li = document.createElement("li");
+
+        li.innerHTML = `
+
+<div class="left">
+
+<input type="checkbox">
+
+<div>
+
+<div class="task">${task}</div>
+
+<div class="date">📅 ${date}</div>
+
+</div>
+
+</div>
+
+<button class="delete">
+Delete
+</button>
+
+`;
+
+        const checkbox = li.querySelector("input");
+
+        const text = li.querySelector(".task");
+
+        checkbox.addEventListener("change", function () {
+          text.classList.toggle("completed");
+        });
+
+        li.querySelector(".delete").addEventListener("click", function () {
+          li.remove();
+        });
+
+        document.getElementById("list").appendChild(li);
+
+        document.getElementById("task").value = "";
+        document.getElementById("date").value = "";
+      }
+
+      document
+        .getElementById("task")
+        .addEventListener("keypress", function (e) {
+          if (e.key === "Enter") {
+            addTask();
+          }
+        });
+    </script>
+  </body>
+</html>

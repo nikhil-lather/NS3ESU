@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Projects</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      body {
+        background: #111827;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+
+      .container {
+        width: 90%;
+        max-width: 1000px;
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+      }
+
+      .card {
+        background: #1f2937;
+        padding: 30px;
+        border-radius: 15px;
+        text-align: center;
+        transition: 0.3s;
+      }
+
+      .card:hover {
+        transform: translateY(-8px);
+        background: #374151;
+      }
+
+      .card h2 {
+        margin-bottom: 15px;
+      }
+
+      .card p {
+        margin-bottom: 20px;
+        color: #ccc;
+      }
+
+      .btn {
+        text-decoration: none;
+        background: #2563eb;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 8px;
+        display: inline-block;
+      }
+
+      .btn:hover {
+        background: #1d4ed8;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🚀 My HTML, CSS, JavaScript Projects</h1>
+
+      <div class="grid">
+        <div class="card">
+          <h2>Calculator</h2>
+          <p>Simple calculator using HTML CSS JavaScript.</p>
+          <a href="projects/calculator.html" class="btn">Open</a>
+        </div>
+
+        <div class="card">
+          <h2>To-Do List</h2>
+          <p>Add, delete and manage daily tasks.</p>
+          <a href="projects/todo.html" class="btn">Open</a>
+        </div>
+
+        <div class="card">
+          <h2>Profile Card</h2>
+          <p>Interactive profile card project.</p>
+          <a href="projects/profile.html" class="btn">Open</a>
+        </div>
+
+        <div class="card">
+          <h2>Greeting App</h2>
+          <p>Template literals and greeting project.</p>
+          <a href="projects/greet.html" class="btn">Open</a>
+        </div>
+
+        <div class="card">
+          <h2>Form</h2>
+          <p>HTML form with validation.</p>
+          <a href="projects/form.html" class="btn">Open</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
