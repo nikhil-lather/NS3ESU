@@ -110,6 +110,7 @@ function App() {
         {/* Terms */}
         <div className="checkbox">
           <input
+            required
             type="checkbox"
             name="terms"
             checked={formData.terms}
